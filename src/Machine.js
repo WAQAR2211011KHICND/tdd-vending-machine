@@ -31,7 +31,13 @@ module.exports = class Machine {
             return 'Invalid Credited Amount';
     }
 
-    selectItem(codes){
+    selectItem(code){
+        
+        this.Items.forEach(i=>{
+           if( i.code === code)
+                return 'Item Avaliable';
+        })
+
         return 'The item you selected is unavailable';
     }
 };

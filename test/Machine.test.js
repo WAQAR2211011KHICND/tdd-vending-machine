@@ -17,9 +17,11 @@ describe('the vending machine', () => {
         // setup
 
         const machine = new Machine();
-        const expected = [{name: 'crisps', RS: 100}, 
+        const expected = [
+                         {name: 'crisps', RS: 100}, 
                          {name: 'chocolate', RS: 350},
-                         {name: 'mints', Rs: 70}];
+                         {name: 'mints', RS: 70}
+                        ];
 
 
         //exercise
@@ -96,26 +98,27 @@ As a customer, I want to see a message if my item is unavailable, so that I can 
 - then I see a message that the item is unavailable.
 - `selectItem(code)` returns `'The item you selected is unavailable'`
  */
-it("The machine should accepted the additional money, in these amounts: `10, 20, 50, 100, 500",()=>{
+it("Should Show message 'The item you selected is unavailable' if Item is unavailable",()=>{
     // setup
 
     const machine = new Machine();
-    const initialMoney = 10;
-    machine.deposit(initialMoney);
+    const code = 4;
+
 
     
     //exercise
-    
-        const extraMoney = 10;
-        const actual = machine.deposit(extraMoney);
         
-        const expected = `You have deposited Rs ${20}`;
+        const actual = machine.selectItem(code);
+        
+        const expected = `The item you selected is unavailable`;
 
 
     // assert
     expect(expected).toEqual(actual);
 
 });
+
+
 
 
 });
