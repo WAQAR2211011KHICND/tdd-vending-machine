@@ -32,6 +32,7 @@ module.exports = class Machine {
     }
 
     selectItem(code){
+
         let found = -1;
         for(let i =0  ; i < this.Items.length; i++){
             if( this.Items[i].code === code )
@@ -44,12 +45,46 @@ module.exports = class Machine {
         else {
         
             if ( this.Items[found].RS <= this.credit)
-                return 'Success';
+                return { item   : this.Items[found].name ,
+                         change : this.processChange(this.Items[found].RS)
+                        };
             else
-                return `Your deposit is insufficient.  Please add Rs ${this.Items[found].RS-this.credit} for this item`;
+                return `Your deposit is insufficient.  Please add Rs ${this.Items[found].RS - this.credit} for this item`;
+        }
+    }
+
+    processChange(itemPrice){
+        let change   = [];
+        let currNote = [10,20,50,100,500];
+
+        if(this.credit === itemPrice)
+            return change;
+
+        let remaining = this.credit - itemPrice;
+
+        let currIndex = currNote.length;
+        while (remaining!==0 && currIndex > -1 ){
             
+            while(remaining - currNote[currIndex] > -1){                
+                  remaining -= currNote[currIndex];  
+                  change.push( currNote[currIndex] );
+            }
+            currIndex -= 1;
         }
-        
-        }
+
+        this.credit = 0;
+        return change;
+
+    }
+    
+    cancel(){
+        let returnedMoney = this.credit;
+        this.credit = 0;
+        return {
+            change : [returnedMoney]
+        };
+    }
+
+
             
 };
