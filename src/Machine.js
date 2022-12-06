@@ -32,12 +32,24 @@ module.exports = class Machine {
     }
 
     selectItem(code){
-        
-        this.Items.forEach(i=>{
-           if( i.code === code)
-                return 'Item Avaliable';
-        })
+        let found = -1;
+        for(let i =0  ; i < this.Items.length; i++){
+            if( this.Items[i].code === code )
+                found = i;
+        }
 
-        return 'The item you selected is unavailable';
-    }
+        if(found==-1){
+            return 'The item you selected is unavailable';
+        }
+        else {
+        
+            if ( this.Items[found].RS <= this.credit)
+                return 'Success';
+            else
+                return `Your deposit is insufficient.  Please add Rs ${this.Items[found].RS-this.credit} for this item`;
+            
+        }
+        
+        }
+            
 };

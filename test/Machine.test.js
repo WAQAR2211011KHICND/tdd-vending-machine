@@ -119,6 +119,37 @@ it("Should Show message 'The item you selected is unavailable' if Item is unavai
 });
 
 
+/**
+ As a customer, I want to see a message if my deposit is insufficient, so that I know to add more money.
+- Given I have made a choice, 
+- when I have not deposited enough money for that item, 
+- then I see a message telling me how much more to deposit.
+- `selectItem(code)` returns `'Your deposit is insufficient.  Please add Rs 20 for this item'`
+ */
+
+it("Should Show message 'The item you selected is unavailable' if Item is unavailable",()=>{
+    // setup
+
+        const machine = new Machine();
+        const money = 100;
+        machine.deposit(100);
+        const code = 2;
+        const expected = 'Your deposit is insufficient.  Please add Rs 250 for this item';
+    
+    
+    
+    //exercise
+
+        const actual = machine.selectItem(code);   
+        
+        
+
+
+    // assert
+    expect(expected).toEqual(actual);
+
+});
+
 
 
 });
